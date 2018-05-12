@@ -14,13 +14,13 @@ public class LRUCacheController {
     @NonNull
     private final LRUCacheService lruCacheService;
 
-    @PutMapping(value = "/put", consumes = "application/json")
+    @PutMapping
     public void put(@RequestBody NodeDTO node) {
         lruCacheService.put(node.getKey(), node.getValue());
     }
 
-    @GetMapping(value = "/get", produces = "application/json")
-    public ResponseNode get(@RequestParam("key") String key) {
+    @GetMapping(value = "/{key}")
+    public ResponseNode get(@PathVariable("key") String key) {
         String value = lruCacheService.get(key);
         ResponseNode response = new ResponseNode(value != null, value);
         return response;
@@ -29,5 +29,10 @@ public class LRUCacheController {
     @PostMapping(value = "/capacity")
     public void changeCapacity(@RequestParam("capacity") int capacity) {
         lruCacheService.changeCapactity(capacity);
+    }
+
+    @PostMapping(value = "/invalidate")
+    public void invalidate() {
+        lruCacheService.invalidate();
     }
 }
