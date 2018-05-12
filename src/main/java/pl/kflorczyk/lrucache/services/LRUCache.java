@@ -13,7 +13,7 @@ public class LRUCache {
     private Map<String, Integer> map = new HashMap<>();
     private LinkedList<String> lastUsed = new LinkedList<>();
 
-    public void set(String key, int value) {
+    public void put(String key, int value) {
         if(map.containsKey(key)) {
             lastUsed.remove(key);
             lastUsed.addFirst(key);
