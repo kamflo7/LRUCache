@@ -48,6 +48,8 @@ public class LRUCacheService {
     }
 
     public void changeCapactity(int capacity) {
+        if(capacity < 2) throw new IllegalArgumentException("The capacity should be at least 2");
+
         int currentCapacityDifference = map.size() - capacity;
 
         if(currentCapacityDifference > 0) {

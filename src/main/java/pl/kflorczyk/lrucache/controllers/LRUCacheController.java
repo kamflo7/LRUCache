@@ -26,4 +26,13 @@ public class LRUCacheController {
         ResponseNode response = new ResponseNode(value != null, value);
         return response;
     }
+
+    @PostMapping(value = "/capacity")
+    public void changeCapacity(@RequestParam("capacity") int capacity) {
+        try {
+            lruCacheService.changeCapactity(capacity);
+        } catch(IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+    }
 }
