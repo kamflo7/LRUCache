@@ -17,7 +17,8 @@ public class LRUCacheServiceTests {
 
     @Test
     public void whenLruCachePutTheMechanismIsCorrect() {
-        LRUCacheService lruCacheService = new LRUCacheService(5);
+        LRUCacheService lruCacheService = new LRUCacheService();
+        lruCacheService.changeCapactity(5);
 
         LinkedList<String> lastUsed = getPropertyLastUsedByReflection(lruCacheService);
         Map<String, Integer> map = getPropertyMapByReflection(lruCacheService);
@@ -45,7 +46,8 @@ public class LRUCacheServiceTests {
 
     @Test
     public void whenLruCachePutAndGetTheMechanismIsCorrect() {
-        LRUCacheService lruCacheService = new LRUCacheService(5);
+        LRUCacheService lruCacheService = new LRUCacheService();
+        lruCacheService.changeCapactity(5);
 
         LinkedList<String> lastUsed = getPropertyLastUsedByReflection(lruCacheService);
         Map<String, Integer> map = getPropertyMapByReflection(lruCacheService);
@@ -65,7 +67,9 @@ public class LRUCacheServiceTests {
 
     @Test
     public void whenLruCacheChangeCapacityTheMechanismIsCorrect() {
-        LRUCacheService lruCacheService = new LRUCacheService(3);
+        LRUCacheService lruCacheService = new LRUCacheService();
+        lruCacheService.changeCapactity(3);
+
         LinkedList<String> lastUsed = getPropertyLastUsedByReflection(lruCacheService);
         Map<String, Integer> map = getPropertyMapByReflection(lruCacheService);
 

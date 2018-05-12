@@ -1,19 +1,18 @@
 package pl.kflorczyk.lrucache.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import pl.kflorczyk.lrucache.models.NodeDTO;
 import pl.kflorczyk.lrucache.models.ResponseNode;
 import pl.kflorczyk.lrucache.services.LRUCacheService;
 
 @RestController
+@RequiredArgsConstructor
 public class LRUCacheController {
 
-    private LRUCacheService lruCacheService;
-
-    public LRUCacheController(@Autowired LRUCacheService lruCacheService) {
-        this.lruCacheService = lruCacheService;
-    }
+    @NonNull
+    private final LRUCacheService lruCacheService;
 
     @PutMapping(value = "/put", consumes = "application/json")
     public void put(@RequestBody NodeDTO node) {
@@ -29,10 +28,6 @@ public class LRUCacheController {
 
     @PostMapping(value = "/capacity")
     public void changeCapacity(@RequestParam("capacity") int capacity) {
-        try {
-            lruCacheService.changeCapactity(capacity);
-        } catch(IllegalArgumentException e) {
-            e.printStackTrace();
-        }
+        lruCacheService.changeCapactity(capacity);
     }
 }

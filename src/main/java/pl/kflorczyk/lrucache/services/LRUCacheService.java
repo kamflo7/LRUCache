@@ -1,5 +1,6 @@
 package pl.kflorczyk.lrucache.services;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -8,33 +9,23 @@ import java.util.Map;
 
 @Service
 public class LRUCacheService {
-    private int maxCapacity = 0;
+
+    @Value("${capacity}")
+    private int maxCapacity;
 
     private Map<String, String> map = new HashMap<>();
     private LinkedList<String> lastUsed = new LinkedList<>();
 
-    public LRUCacheService(int maxCapacity) {
-        this.maxCapacity = maxCapacity;
-    }
-
-    public LRUCacheService() {
-        this(5);
-    }
-
     public void put(String key, String value) {
         if(map.containsKey(key)) {
             lastUsed.remove(key);
-            lastUsed.addFirst(key);
-        } else {
-            if(map.size() == maxCapacity) {
-                String lastKey = lastUsed.getLast();
-                map.remove(lastKey);
-                lastUsed.removeLast();
-            }
-
-            lastUsed.addFirst(key);
+        } else if(map.size() == maxCapacity) {
+            String lastKey = lastUsed.getLast();
+            map.remove(lastKey);
+            lastUsed.removeLast();
         }
 
+        lastUsed.addFirst(key);
         map.put(key, value);
     }
 
