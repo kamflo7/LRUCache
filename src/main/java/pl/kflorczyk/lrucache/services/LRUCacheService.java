@@ -11,7 +11,7 @@ import java.util.Map;
 public class LRUCacheService {
 
     @Value("${capacity}")
-    private int maxCapacity;
+    private int capacity;
 
     private Map<String, String> map = new HashMap<>();
     private LinkedList<String> lastUsed = new LinkedList<>();
@@ -19,7 +19,7 @@ public class LRUCacheService {
     public void put(String key, String value) {
         if(map.containsKey(key)) {
             lastUsed.remove(key);
-        } else if(map.size() == maxCapacity) {
+        } else if(map.size() == capacity) {
             String lastKey = lastUsed.getLast();
             map.remove(lastKey);
             lastUsed.removeLast();
@@ -39,7 +39,9 @@ public class LRUCacheService {
     }
 
     public void changeCapactity(int capacity) {
-        if(capacity < 2) throw new IllegalArgumentException("The capacity should be at least 2");
+        if(capacity < 2) {
+            throw new IllegalArgumentException("The capacity should be at least 2");
+        }
 
         int currentCapacityDifference = map.size() - capacity;
 
@@ -50,7 +52,7 @@ public class LRUCacheService {
             }
         }
 
-        maxCapacity = capacity;
+        this.capacity = capacity;
     }
 
     public void invalidate() {

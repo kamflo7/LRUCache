@@ -3,8 +3,8 @@ package pl.kflorczyk.lrucache.controllers;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import pl.kflorczyk.lrucache.models.NodeDTO;
-import pl.kflorczyk.lrucache.models.ResponseNode;
+import pl.kflorczyk.lrucache.dto.GetValueRequest;
+import pl.kflorczyk.lrucache.dto.GetValueResponse;
 import pl.kflorczyk.lrucache.services.LRUCacheService;
 
 @RestController
@@ -15,15 +15,14 @@ public class LRUCacheController {
     private final LRUCacheService lruCacheService;
 
     @PutMapping
-    public void put(@RequestBody NodeDTO node) {
-        lruCacheService.put(node.getKey(), node.getValue());
+    public void put(@RequestBody GetValueRequest body) {
+        lruCacheService.put(body.getKey(), body.getValue());
     }
 
     @GetMapping(value = "/{key}")
-    public ResponseNode get(@PathVariable("key") String key) {
+    public GetValueResponse get(@PathVariable("key") String key) {
         String value = lruCacheService.get(key);
-        ResponseNode response = new ResponseNode(value != null, value);
-        return response;
+        return new GetValueResponse(value != null, value);
     }
 
     @PostMapping(value = "/capacity")
