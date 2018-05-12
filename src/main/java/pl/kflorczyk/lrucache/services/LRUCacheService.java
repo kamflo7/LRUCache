@@ -7,17 +7,21 @@ import java.util.LinkedList;
 import java.util.Map;
 
 @Service
-public class LRUCache {
+public class LRUCacheService {
     private int maxCapacity = 0;
 
-    private Map<String, Integer> map = new HashMap<>();
+    private Map<String, String> map = new HashMap<>();
     private LinkedList<String> lastUsed = new LinkedList<>();
 
-    public LRUCache(int maxCapacity) {
+    public LRUCacheService(int maxCapacity) {
         this.maxCapacity = maxCapacity;
     }
 
-    public void put(String key, int value) {
+    public LRUCacheService() {
+        this(5);
+    }
+
+    public void put(String key, String value) {
         if(map.containsKey(key)) {
             lastUsed.remove(key);
             lastUsed.addFirst(key);
@@ -34,13 +38,13 @@ public class LRUCache {
         map.put(key, value);
     }
 
-    public int get(String key) {
+    public String get(String key) {
         if(map.containsKey(key)) {
             lastUsed.remove(key);
             lastUsed.addFirst(key);
             return map.get(key);
         }
-        return -1;
+        return null;
     }
 
     public void changeCapactity(int capacity) {
