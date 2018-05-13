@@ -25,8 +25,8 @@ public class LRUCacheController {
         return new GetValueResponse(value != null, value);
     }
 
-    @PostMapping(value = "/capacity")
-    public void changeCapacity(@RequestParam("capacity") int capacity) {
+    @PostMapping(value = "/capacity/{capacity}")
+    public void changeCapacity(@PathVariable("capacity") int capacity) {
         lruCacheService.changeCapactity(capacity);
     }
 

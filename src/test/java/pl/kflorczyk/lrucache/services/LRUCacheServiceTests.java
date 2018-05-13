@@ -1,4 +1,4 @@
-package pl.kflorczyk.lrucache;
+package pl.kflorczyk.lrucache.services;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,17 +1,16 @@
 package pl.kflorczyk.lrucache.dto;
 
+import lombok.Getter;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class GetValueRequest {
+
+    @Getter
+    @NonNull
     private String key;
-    private String value;
 
-    public String getKey() {
-        return key;
-    }
-
-    public String getValue() {
-        return value;
-    }
+    @Getter
+    @NonNull private String value;
 }
